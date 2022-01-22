@@ -29,6 +29,7 @@ export const login = (email, password) => {
 
 export const logout = () => {
   localStorage.removeItem(TOKEN_KEY);
+  window.location.reload();
 };
 
 export function setToken(token) {

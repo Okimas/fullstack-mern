@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import "./App.css";
+import icons from "./assets/icons.svg";
 import backgroundLinght from "./assets/images/background-light.jpg";
 import backgroundDark from "./assets/images/background-dark.jpg";
 import Login from "./components/Login";
 import ImageViewer from "./components/ImageViewer";
 import Loading from "./components/Loading";
 import Scene from "./components/Scene";
-import { getStoragedData, getStoragedToken } from "./data/localStorage";
+import { getStoragedData } from "./data/localStorage";
 import { getData } from "./data/database";
+import { getToken, logout } from "./data/auth";
 
 class App extends Component {
   state = {
@@ -65,27 +67,31 @@ class App extends Component {
   };
 
   componentDidMount() {
-    const token = getStoragedToken();
+    const token = getToken();
     if (token) {
       getData(token)
         .then((data) => {
           const dataByLanguage = data.find(
-            (d) => d.language.code === this.settings.language
+            (d) => d.language.code === this.state.settings.language
           );
-          this.setState({
-            ...this.state,
-            data: dataByLanguage,
-            settings: {
-              theme:
-                dataByLanguage && dataByLanguage.theme
-                  ? dataByLanguage.theme
-                  : this.settings.theme,
-              language: this.settings.language,
+          this.setState(
+            {
+              ...this.state,
+              data: dataByLanguage,
+              settings: {
+                theme:
+                  dataByLanguage && dataByLanguage.theme
+                    ? dataByLanguage.theme
+                    : this.state.settings.theme,
+                language: this.state.settings.language,
+              },
+              component: null,
             },
-            component: null,
-          });
+            () => this.init()
+          );
         })
         .catch((error) => {
+          console.log("B-ERR", error);
           // INVALID TOKEN / ERROR
           this.setState({
             ...this.state,
@@ -93,13 +99,12 @@ class App extends Component {
             component: { name: "login" },
           });
         });
-    } else {
+    } else
       this.setState({
         ...this.state,
         data: null,
         component: { name: "login" },
       });
-    }
   }
 
   getHeightSum = (index) => {
@@ -206,6 +211,11 @@ class App extends Component {
                     )
                   }
                 ></div>
+                <div className="options-logout" onClick={() => logout()}>
+                  <svg width="16" height="16">
+                    <use xlinkHref={`${icons}#logout`} />
+                  </svg>
+                </div>
               </div>
               <div className="title">
                 <div className="name">{data.profile.name}</div>

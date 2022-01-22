@@ -1,46 +1,48 @@
 import React from "react";
-import { login } from "../data/auth";
-import { getData } from "../data/database";
 import "./Login.css";
+import { login, setToken } from "../data/auth";
+import { setStoragedData } from "../data/localStorage";
+import { getData, isDev } from "../data/database";
 
 const Login = ({ theme, language, onChildAction }) => {
   const onSubmit = (e) => {
     e.preventDefault();
+
     const message = document.querySelector("#login-message");
-    const email = document.querySelector("#login-email").value;
-    const pass = document.querySelector("#login-pass").value;
-    login(email, pass)
-      .then((data) => {
-        onChildAction({ data });
-      })
-      .catch((error) => {
-        message.textContent = error.message;
-        // delete this code
-        getData("token")
-          .then((data) => {
-            console.log("A", data);
-            const dataByLanguage = data.find(
-              (d) => d.language.code === language
-            );
-            onChildAction({
-              data: dataByLanguage,
-              settings: {
-                theme:
-                  dataByLanguage && dataByLanguage.theme
-                    ? dataByLanguage.theme
-                    : theme,
-                language,
-              },
-              component: null,
-            });
-          })
-          .catch((error) => {});
-      });
+    if (isDev)
+      getData()
+        .then((data) => {
+          setToken("TOKEN");
+          setStoragedData(data);
+          const dataLanguage = data.find((d) => d.language.code === language);
+          onChildAction({ data: dataLanguage ? dataLanguage : data[0] });
+        })
+        .catch((error) => {
+          message.textContent = "error.message";
+        });
+    else {
+      const email = document.querySelector("#login-email").value;
+      const pass = document.querySelector("#login-pass").value;
+      login(email, pass)
+        .then((result) => {
+          setToken(result.user.token);
+          setStoragedData(result.data);
+          const dataLanguage = result.data.find(
+            (d) => d.language.code === language
+          );
+          onChildAction({ data: dataLanguage ? dataLanguage : result.data[0] });
+        })
+        .catch((error) => {
+          message.textContent = error.message;
+          console.log(error.message);
+        });
+    }
   };
 
   return (
     <div id="login" className={`${theme !== "dark" ? "" : theme}`}>
-      <div>
+      <div className="container">
+        <div id="login-message">ERROR</div>
         <form onSubmit={onSubmit}>
           <input id="login-email" type="email" placeholder="E-MAILS" />
           <br />
@@ -49,7 +51,6 @@ const Login = ({ theme, language, onChildAction }) => {
           <input type="submit" value={"Entrar"} />
         </form>
       </div>
-      <div id="login-message">ERROR</div>
     </div>
   );
 };

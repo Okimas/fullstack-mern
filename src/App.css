@@ -81,9 +81,16 @@ strong {
   width: 10px;
   height: 10px;
   margin-left: 16px;
+  margin-right: 16px;
   border-radius: 50%;
   background-color: rgb(0, 0, 0);
 }
+#app header .options-logout {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 2px;
+}
+#app header .options-logout:hover,
 #app header .options-language:hover,
 #app header .options-theme:hover {
   cursor: pointer;
@@ -192,6 +199,9 @@ strong {
 }
 #app.dark header .options-theme {
   background-color: rgb(255, 255, 255);
+}
+#app.dark header .options-logout svg {
+  color: rgb(255, 255, 255);
 }
 #app.dark header .options-btn {
   color: rgb(255, 255, 255);
