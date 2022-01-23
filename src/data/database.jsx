@@ -1,6 +1,6 @@
 import axios from "axios";
 const { setStoragedData } = require("./localStorage");
-export const withServer = false;
+export const withServer = true;
 
 const staticData = [
   {
