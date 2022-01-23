@@ -1,6 +1,6 @@
 import axios from "axios";
 const { setStoragedData } = require("./localStorage");
-export const isDev = true;
+export const withServer = false;
 
 const staticData = [
   {
@@ -293,12 +293,7 @@ const staticData = [
 
 export const getData = (token) => {
   return new Promise((resolve, reject) => {
-    if (isDev)
-      setTimeout(() => {
-        setStoragedData(staticData);
-        resolve(staticData);
-      }, 1300);
-    else
+    if (withServer)
       axios
         .post("/api/data", { token })
         .then((response) => {
@@ -311,5 +306,10 @@ export const getData = (token) => {
         .catch((error) => {
           reject(error);
         });
+    else
+      setTimeout(() => {
+        setStoragedData(staticData);
+        resolve(staticData);
+      }, 1300);
   });
 };

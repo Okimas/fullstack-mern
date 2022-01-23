@@ -7,24 +7,67 @@
   align-items: center;
   background-color: rgb(255, 255, 255);
 }
+#login img.logo {
+  width: 64px;
+  height: 64px;
+  float: left;
+  margin-right: 12px;
+}
 #login .container {
-  width: 260px;
+  padding: 32px;
+  max-width: 320px;
+}
+#login header .title {
+  font-size: 26px;
+}
+#login header .text {
+  font-size: 13px;
+  padding-bottom: 12px;
+  padding-left: 1px;
 }
 #login-message {
   font-size: 9px;
   text-transform: uppercase;
-  color: rgb(171, 0, 0);
+  color: rgb(220, 6, 6);
+  height: 12px;
+  padding-left: 4px;
+  padding-bottom: 5px;
 }
 #login form input[type="email"],
 #login form input[type="password"] {
-  width: 100%;
-  padding: 6px 12px;
-  border-radius: 6px;
   background: none;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.02);
+  color: rgb(0, 98, 163);
+  width: calc(100% - 26px);
+  margin: 0;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+}
+#login form input[type="email"]:hover,
+#login form input[type="password"]:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+#login form input[type="submit"] {
+  min-width: 100px;
+}
+#login form .btn-container {
+  padding-top: 6px;
+  text-align: right;
 }
 
 @media only screen and (max-width: 580px), screen and (max-height: 580px) {
   #login .container {
-    max-width: 90%;
+    max-width: 100%;
+  }
+  #login form input[type="email"],
+  #login form input[type="password"] {
+    padding: 10px 12px;
+  }
+  #login form input[type="submit"] {
+    width: 100%;
+    padding: 10px 16px;
+    margin: 6px 0px;
   }
 }
