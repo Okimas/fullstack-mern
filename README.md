@@ -12,10 +12,10 @@ This project has some of the features I use in most of my full-stack (Customized
 
 ### Screens
 
-<img src="src/assets/images/screen-d-l.png" width="90%"/>
-<p>
-<img src="src/assets/images/screen-m-d.png" width="45%"/>
-<img src="src/assets/images/screen-m-l.png" width="45%"/>
+<img src="src/assets/images/screen-d-l.png" width="98%"/>
+<p align="center">
+<img src="src/assets/images/screen-m-d.png" width="48%"/>
+<img src="src/assets/images/screen-m-l.png" width="48%"/>
 </p>
 
 ## What is needed
@@ -31,8 +31,6 @@ Create a file `.env` with this variables:
 - DROPBOX_TOKEN=YOUR DROPBOX APPLICATION TOKEN
 - EMAIL_ADDRESS=YOUR EMAIL
 - EMAIL_PASSWWORD=YOUR EMAIL PASSWORD
-
-### express
 
 ### mongoDB
 
@@ -51,4 +49,4 @@ In your Gmail account (Manager) you will need to enable "allow app less secure" 
 
 I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication.
 
-[^1]: You can find all versions and extra packages in `package.json`.
+###### You can find all versions and extra packages in `package.json`.
