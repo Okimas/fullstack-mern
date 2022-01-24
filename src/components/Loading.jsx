@@ -1,10 +1,10 @@
 import React from "react";
 import "./Loading.css";
 
-const Loading = ({ theme, language }) => {
+const Loading = ({ theme, message }) => {
   return (
     <div id="loading" className={`${theme !== "dark" ? "" : theme}`}>
-      <div>{language === "pt-BR" ? "CARREGANDO" : "LOADING"}</div>
+      <div>{message}</div>
     </div>
   );
 };

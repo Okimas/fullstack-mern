@@ -1,15 +1,19 @@
 import React, { Component } from "react";
 import "./App.css";
 import icons from "./assets/icons.svg";
-import backgroundLinght from "./assets/images/background-light.jpg";
-import backgroundDark from "./assets/images/background-dark.jpg";
+import backgroundBlack from "./assets/images/background-black.jpg";
+import backgroundWhite from "./assets/images/background-white.jpg";
 import Login from "./components/Login";
 import ImageViewer from "./components/ImageViewer";
 import Loading from "./components/Loading";
 import Scene from "./components/Scene";
-import { getStoragedData } from "./data/localStorage";
+import { getStoragedData, setStoragedData } from "./data/localStorage";
 import { getData } from "./data/database";
-import { getToken, logout } from "./data/auth";
+import { getToken, logout, setToken } from "./data/auth";
+import EmailSend from "./components/EmailSend";
+import { dataURItoBlob, getElementOffset } from "./utils/utils";
+import { Dialog } from "./components/Dialog";
+import { uploadImage } from "./data/upload";
 
 class App extends Component {
   state = {
@@ -29,6 +33,7 @@ class App extends Component {
     this.windowResize();
     window.addEventListener("resize", this.windowResize, false);
     window.addEventListener("keydown", this.onKeyDown, false);
+    window.addEventListener("click", this.closeMainMenu, false);
     document
       .querySelector("#app main")
       .addEventListener("scroll", this.onMainScroll, false);
@@ -37,6 +42,9 @@ class App extends Component {
       document
         .querySelector("#app .section-background-image")
         .classList.add("loaded");
+    document
+      .querySelector("#image-file")
+      .addEventListener("change", this.onImageSelection, false);
   };
 
   windowResize = () => {
@@ -66,6 +74,77 @@ class App extends Component {
     }, 300);
   };
 
+  onImageSelection = (e) => {
+    const files = e.target.files;
+    if (FileReader && files && files.length) {
+      var fr = new FileReader();
+      fr.onerror = (error) => {
+        this.setState({
+          ...this.state,
+          dialog: {
+            title: "Error!",
+            message: error.message,
+            buttons: [
+              {
+                label: "OK",
+                onClick: () => {
+                  this.setState({ ...this.state, dialog: null });
+                },
+              },
+            ],
+            onClose: () => {
+              this.setState({ ...this.state, dialog: null });
+            },
+          },
+        });
+      };
+      fr.onloadend = () => {
+        uploadImage(dataURItoBlob(fr.result))
+          .then((response) => {
+            this.setState({
+              ...this.state,
+              dialog: {
+                title: "Success!",
+                message: `Image uploaded. [project folder] => "${response.imagePath}". Also stored on Dropbox`,
+                buttons: [
+                  {
+                    label: "OK",
+                    onClick: () => {
+                      this.setState({ ...this.state, dialog: null });
+                    },
+                  },
+                ],
+                onClose: () => {
+                  this.setState({ ...this.state, dialog: null });
+                },
+              },
+            });
+          })
+          .catch((error) => {
+            this.setState({
+              ...this.state,
+              dialog: {
+                title: "Error!",
+                message: "Image was not uploaded. Error: " + error.message,
+                buttons: [
+                  {
+                    label: "OK",
+                    onClick: () => {
+                      this.setState({ ...this.state, dialog: null });
+                    },
+                  },
+                ],
+                onClose: () => {
+                  this.setState({ ...this.state, dialog: null });
+                },
+              },
+            });
+          });
+      };
+      fr.readAsDataURL(files[0]);
+    }
+  };
+
   componentDidMount() {
     const token = getToken();
     if (token) {
@@ -91,8 +170,10 @@ class App extends Component {
           );
         })
         .catch((error) => {
+          // INVALID/EXPIDED TOKEN / ERROR
           console.log("B-ERR", error);
-          // INVALID TOKEN / ERROR
+          setToken();
+          setStoragedData();
           this.setState({
             ...this.state,
             data: null,
@@ -116,6 +197,31 @@ class App extends Component {
     return heightSum;
   };
 
+  closeMainMenu = (e) => {
+    const menuElement = document.querySelector("#menu");
+    const btnElement = document.querySelector("#app .options-menu");
+    try {
+      if (
+        !menuElement ||
+        !menuElement.classList ||
+        (menuElement.classList && menuElement.classList.contains("hidden")) ||
+        btnElement.contains(e.target)
+      )
+        return;
+
+      const fPos = getElementOffset(menuElement);
+      const fW = menuElement.offsetWidth;
+      const fH = menuElement.offsetHeight;
+      const insideFilter =
+        e.clientX >= parseInt(fPos.left) &&
+        e.clientX <= parseInt(fPos.left) + fW &&
+        e.clientY >= parseInt(fPos.top) &&
+        e.clientY <= parseInt(fPos.top) + fH;
+
+      if (!insideFilter) menuElement.classList.add("hidden");
+    } catch (error) {}
+  };
+
   onKeyDown = (e) => {
     if (e.which === 34 || e.which === 40 || e.which === 39) {
       const newIndex = this.state.sectionActive + 1;
@@ -129,9 +235,13 @@ class App extends Component {
         document.querySelector("#app main").scrollTop =
           this.getHeightSum(newIndex);
       }
-    } else if (e.which === 27 && this.state.imageViewer) {
+    } else if (e.which === 27) {
       //ESC
-      this.setState({ ...this.state, component: null });
+      const menuElement = document.querySelector("#menu");
+      if (menuElement) menuElement.classList.add("hidden");
+
+      if (this.state.imageViewer)
+        this.setState({ ...this.state, component: null });
     }
   };
 
@@ -172,7 +282,7 @@ class App extends Component {
   };
 
   render() {
-    const { settings, component, data, sectionActive } = this.state;
+    const { settings, component, data, sectionActive, dialog } = this.state;
     return (
       <>
         {data && (
@@ -180,14 +290,15 @@ class App extends Component {
             id="app"
             className={`${settings.theme !== "dark" ? "" : settings.theme}`}
           >
+            <input id="image-file" type="file" accept="image/*" hidden />
             <picture
               className="background-image"
               style={{
                 backgroundImage:
                   "url(" +
                   (settings.theme === "dark"
-                    ? backgroundDark
-                    : backgroundLinght) +
+                    ? backgroundBlack
+                    : backgroundWhite) +
                   ")",
               }}
             />
@@ -211,10 +322,54 @@ class App extends Component {
                     )
                   }
                 ></div>
-                <div className="options-logout" onClick={() => logout()}>
+                <div
+                  className="options-menu"
+                  onClick={() => {
+                    document.querySelector("#menu").classList.toggle("hidden");
+                  }}
+                >
                   <svg width="16" height="16">
-                    <use xlinkHref={`${icons}#logout`} />
+                    <use xlinkHref={`${icons}#menu`} />
                   </svg>
+                </div>
+                <div id="menu" className="hidden">
+                  <div className="menu-label">DEV Tests</div>
+                  <div
+                    className="menu-item"
+                    onClick={() => {
+                      document
+                        .querySelector("#menu")
+                        .classList.toggle("hidden");
+                      this.setState({
+                        ...this.state,
+                        component: { name: "email" },
+                      });
+                    }}
+                  >
+                    Send a E-mail
+                  </div>
+                  <div
+                    className="menu-item"
+                    onClick={() => {
+                      document
+                        .querySelector("#menu")
+                        .classList.toggle("hidden");
+                      document.querySelector("#image-file").click();
+                    }}
+                  >
+                    Upload and Store(Dropbox) a image
+                  </div>
+                  <div
+                    className="menu-item"
+                    onClick={() => {
+                      document
+                        .querySelector("#menu")
+                        .classList.toggle("hidden");
+                      logout();
+                    }}
+                  >
+                    LogOut
+                  </div>
                 </div>
               </div>
               <div className="title">
@@ -276,7 +431,25 @@ class App extends Component {
           />
         )}
         {component && component.name === "loading" && (
-          <Loading theme={settings.theme} language={settings.language} />
+          <Loading
+            theme={settings.theme}
+            message={settings.language === "pt-BR" ? "CARREGANDO" : "LOADING"}
+          />
+        )}
+        {component && component.name === "email" && (
+          <EmailSend
+            theme={settings.theme}
+            language={settings.language}
+            onChildAction={this.onChildAction}
+          />
+        )}
+        {dialog && (
+          <Dialog
+            title={dialog.title}
+            message={dialog.message}
+            buttons={dialog.buttons}
+            onClose={dialog.onClose}
+          />
         )}
       </>
     );

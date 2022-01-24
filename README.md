@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# MERN Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project has some of the features I used in most of my full-stack (Customized systems for process automation) projects. Here I just used my [homepage](https://github.com/Okimas/home) project as front-end with some options to test the integration. Main project features:
 
-## Available Scripts
+### secure login
 
-In the project directory, you can run:
+### backup (local and Dropbox)
 
-### `npm start`
+### file upload
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### e-mail integration
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<img src="src/assets/images/screen-d-l.png" height="320"/>
+<img src="src/assets/images/screen-m-d.png" height="320"/>
+<img src="src/assets/images/screen-m-l.png" height="320"/>
 
-### `npm test`
+## What is needed
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### node.js
 
-### `npm run build`
+Create a file `.env` with this variables:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- APP_KEY=YOUR KEY
+- SERVER_PORT=YOUR PORT
+- FRONTEND_FOLDER=build (React production files)
+- MONGO_URL=mongodb://localhost:27017/github
+- DROPBOX_TOKEN=YOUR DROPBOX KEY
+- EMAIL_ADDRESS=YOUR EMAIL
+- EMAIL_PASSWWORD=YOUR EMAIL PASSWORD
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### express
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### mongoDB
 
-### `npm run eject`
+In `./src/assets/files` folder I left three json files for each collection of our mongo database that I named `github`.
+The password for the unique user `okimoto.br@gmail.com` is `12345678`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Dropbox Account
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+On your Dropbox account create a application e get a token for it. In `.env` file, set the value for `DROPBOX_TOKEN`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Gmail Account
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+In your Gmail account (Manager) you will need to enable "allow app less secure" in order to send e-mails through code.
 
-## Learn More
+### React
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- You can find all versions and extra packages in `package.json`.

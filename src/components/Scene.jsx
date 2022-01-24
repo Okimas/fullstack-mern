@@ -1,6 +1,7 @@
 import React from "react";
 import "./Scene.css";
 import parse from "html-react-parser";
+import { sendMessage } from "../data/email";
 
 const Scene = ({ scene, active, onChildAction }) => {
   return (

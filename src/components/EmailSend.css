@@ -1,0 +1,132 @@
+#email {
+  z-index: 900;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+}
+#email-close {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 12px 16px;
+}
+#email-close:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+#email img.logo {
+  width: 54px;
+  height: 54px;
+  float: left;
+  margin-right: 12px;
+}
+#email .container {
+  padding: 32px;
+  max-width: 320px;
+}
+#email header .title {
+  font-size: 26px;
+  line-height: 100%;
+}
+#email header .subtitle {
+  font-size: 18px;
+  padding: 0px 0px 12px 0px;
+}
+
+#email header .text {
+  font-size: 13px;
+  padding-left: 1px;
+  overflow-y: scroll;
+  max-height: 200px;
+}
+#email-status {
+  font-size: 9px;
+  text-transform: uppercase;
+  color: rgb(220, 6, 6);
+  height: 12px;
+  padding: 12px 6px 6px 6px;
+}
+#email form textarea,
+#email form input[type="email"],
+#email form input[type="text"] {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.07);
+  color: rgb(0, 98, 163);
+  width: calc(100% - 26px);
+  margin: 0;
+  padding: 8px 12px;
+  margin-bottom: 4px;
+}
+#email form textarea:hover,
+#email form input[type="email"]:hover,
+#email form input[type="text"]:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+#email form input[type="submit"] {
+  min-width: 100px;
+}
+#email form textarea {
+  resize: none;
+}
+#email form .btn-container {
+  padding-top: 6px;
+  text-align: right;
+}
+
+/* DARK THEME */
+#email.dark {
+  background-color: rgb(0, 0, 0);
+}
+#email.dark #email-close svg {
+  color: rgb(255, 255, 255);
+}
+#email.dark #email-close:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+#email.dark header .title {
+  color: rgb(255, 255, 255);
+}
+#email.dark header .subtitle {
+  color: rgb(255, 255, 255);
+}
+#email.dark header .text {
+  color: rgb(255, 255, 255);
+}
+#email.dark #email-status {
+  color: rgb(255, 89, 89);
+}
+#email.dark form textarea,
+#email.dark form input[type="email"],
+#email.dark form input[type="text"] {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgb(255, 255, 255);
+}
+#email.dark form textarea:hover,
+#email.dark form input[type="email"]:hover,
+#email.dark form input[type="text"]:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media only screen and (max-width: 580px), screen and (max-height: 580px) {
+  #email.dark .container {
+    max-width: 100%;
+  }
+  #email form input[type="email"],
+  #email form input[type="text"] {
+    padding: 10px 12px;
+  }
+  #email form input[type="submit"] {
+    width: 100%;
+    padding: 10px 16px;
+    margin: 6px 0px;
+  }
+}
