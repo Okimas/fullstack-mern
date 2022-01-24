@@ -84,10 +84,9 @@ const EmailSend = ({ theme, language, onChildAction }) => {
           <div className="title">MERN Project</div>
           <div className="subtitle">E-mail integration</div>
           <div className="text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+            This tool uses your Gmail (setted in ".env" file) to send e-mails.
+            As an application example, automatic confirmation emails to new
+            users registration.
           </div>
         </header>
         <main>

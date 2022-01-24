@@ -1,8 +1,6 @@
 import React from "react";
 import "./Login.css";
 import logo from "../assets/images/logo-black.png";
-// import logoBlack from "../assets/images/logo-black.png";
-// import logoWhite from "../assets/images/logo-white.png";
 import { login, setToken } from "../data/auth";
 import { setStoragedData } from "../data/localStorage";
 import { getData, withServer } from "../data/database";
@@ -54,19 +52,18 @@ const Login = ({ theme, language, onChildAction }) => {
     <div id="login" className={`${theme !== "dark" ? "" : theme}`}>
       <div className="container">
         <header>
-          {/* <img
-            className="logo"
-            src={theme === "dark" ? logoWhite : logoBlack}
-            alt="logo"
-          /> */}
           <img className="logo" src={logo} alt="" />
           <div className="title">MERN Project</div>
           <div className="subtitle">LogIn</div>
           <div className="text">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book.
+            As secure access, a token based login using local storage and server
+            authorization middleware for each request.
+            <br />
+            To logIn see the readme on{" "}
+            <a href="https://github.com/Okimas/fullstack-mern" target="_blank">
+              GitHub MERN project
+            </a>
+            .
           </div>
         </header>
         <main>

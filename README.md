@@ -6,7 +6,7 @@ This project has some of the features I use in most of my full-stack (Customized
 
 - backup (local and Dropbox)
 
-- file upload
+- file upload (local and Dropbox)
 
 - e-mail integration
 
@@ -49,6 +49,8 @@ In your Gmail account (Manager) you will need to enable "allow app less secure" 
 
 ### React
 
-I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication.
+I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication (in same project).
 
 ###### \* You can find all versions and extra packages in `package.json`.
+
+### RUN `node ./src-backend/index.js`

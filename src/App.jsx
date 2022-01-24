@@ -81,6 +81,7 @@ class App extends Component {
       fr.onerror = (error) => {
         this.setState({
           ...this.state,
+          component: null,
           dialog: {
             title: "Error!",
             message: error.message,
@@ -99,6 +100,10 @@ class App extends Component {
         });
       };
       fr.onloadend = () => {
+        this.setState({
+          ...this.state,
+          component: { name: "loading", message: "sending image" },
+        });
         uploadImage(dataURItoBlob(fr.result))
           .then((response) => {
             this.setState({
@@ -139,7 +144,8 @@ class App extends Component {
                 },
               },
             });
-          });
+          })
+          .finally(() => this.setState({ ...this.state, component: null }));
       };
       fr.readAsDataURL(files[0]);
     }
@@ -240,7 +246,12 @@ class App extends Component {
       const menuElement = document.querySelector("#menu");
       if (menuElement) menuElement.classList.add("hidden");
 
-      if (this.state.imageViewer)
+      if (this.state.dialog) this.setState({ ...this.state, dialog: null });
+      else if (
+        this.state.component &&
+        (this.state.component.name === "imageviewer" ||
+          this.state.component.name === "email")
+      )
         this.setState({ ...this.state, component: null });
     }
   };
@@ -433,7 +444,8 @@ class App extends Component {
         {component && component.name === "loading" && (
           <Loading
             theme={settings.theme}
-            message={settings.language === "pt-BR" ? "CARREGANDO" : "LOADING"}
+            message={component.message}
+            // message={settings.language === "pt-BR" ? "CARREGANDO" : "LOADING"}
           />
         )}
         {component && component.name === "email" && (
@@ -445,6 +457,7 @@ class App extends Component {
         )}
         {dialog && (
           <Dialog
+            theme={settings.theme}
             title={dialog.title}
             message={dialog.message}
             buttons={dialog.buttons}
