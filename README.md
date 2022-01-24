@@ -13,11 +13,9 @@ This project has some of the features I use in most of my full-stack (Customized
 ### Screens
 
 <p align="center">
-<img src="src/assets/images/screen-d-l.png" width="96%"/>
-</p>
-<p align="center">
-<img src="src/assets/images/screen-m-d.png" width="48%"/>
-<img src="src/assets/images/screen-m-l.png" width="48%"/>
+    <img src="src/assets/images/screen-d-d.png" width="50%"/>
+    <img src="src/assets/images/screen-m-d.png" width="22%"/>
+    <img src="src/assets/images/screen-email-m-d.png" width="22%"/>
 </p>
 
 ## What is needed
