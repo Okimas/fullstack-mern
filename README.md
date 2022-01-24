@@ -1,14 +1,16 @@
 # MERN Project
 
-This project has some of the features I used in most of my full-stack (Customized systems for process automation) projects. Here I just used my [homepage](https://github.com/Okimas/home) project as front-end with some options to test the integration. Main project features:
+This project has some of the features I use in most of my full-stack (Customized systems for process automation) projects. Here I just used my [homepage](https://github.com/Okimas/home) project as front-end with some options to test the integration with back-end. Main project features:
 
-### secure login
+- secure login
 
-### backup (local and Dropbox)
+- backup (local and Dropbox)
 
-### file upload
+- file upload
 
-### e-mail integration
+- e-mail integration
+
+### Screens
 
 <img src="src/assets/images/screen-d-l.png" width="90%"/>
 <p>
@@ -26,7 +28,7 @@ Create a file `.env` with this variables:
 - SERVER_PORT=YOUR PORT
 - FRONTEND_FOLDER=build (React production files)
 - MONGO_URL=mongodb://localhost:27017/github
-- DROPBOX_TOKEN=YOUR DROPBOX KEY
+- DROPBOX_TOKEN=YOUR DROPBOX APPLICATION TOKEN
 - EMAIL_ADDRESS=YOUR EMAIL
 - EMAIL_PASSWWORD=YOUR EMAIL PASSWORD
 
@@ -49,4 +51,4 @@ In your Gmail account (Manager) you will need to enable "allow app less secure" 
 
 I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication.
 
-- You can find all versions and extra packages in `package.json`.
+[^1]: You can find all versions and extra packages in `package.json`.
