@@ -10,9 +10,9 @@ This project has some of the features I used in most of my full-stack (Customize
 
 ### e-mail integration
 
-<img src="src/assets/images/screen-d-l.png" height="320"/>
-<img src="src/assets/images/screen-m-d.png" height="320"/>
-<img src="src/assets/images/screen-m-l.png" height="320"/>
+<img src="src/assets/images/screen-d-l.png" width="50%"/>
+<img src="src/assets/images/screen-m-d.png" width="25%"/>
+<img src="src/assets/images/screen-m-l.png" width="25%"/>
 
 ## What is needed
 
