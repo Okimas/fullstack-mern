@@ -10,8 +10,6 @@ This project has some of the features I use in most of my full-stack (Customized
 
 - e-mail integration
 
-* front and back end in one project. In this case works well.
-
 ### Screens
 
 <p align="center">
@@ -52,7 +50,7 @@ In your Gmail account (Manager) you will need to enable "allow app less secure" 
 
 ### React
 
-I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication (in same project).
+I used `Create React App` to start the project. When the user interface was ready I created the folder `./src-backend` and start the node aplication in same project (in this case works well).
 
 ###### \* You can find all versions and extra packages in `package.json`.
 
