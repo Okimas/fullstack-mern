@@ -1,14 +1,16 @@
 # MERN Project
 
-This project has some of the features I use in most of my full-stack (Customized systems for process automation) projects. Here I just used my [homepage](https://github.com/Okimas/home) project as front-end with some options to test the integration with back-end. Main project features:
+This project has some of the features I use in most of my full-stack (Customized systems for process automation) projects. Here I just used my [homepage](https://github.com/Okimas/home) project as front-end with some options to test the integration with back-end. Main features:
 
-- secure login
+- secure login and requests
 
-- backup (local and Dropbox)
+- database backup (local and Dropbox)
 
 - file upload (local and Dropbox)
 
 - e-mail integration
+
+* front and back end in one project. In this case works well.
 
 ### Screens
 
@@ -16,9 +18,9 @@ This project has some of the features I use in most of my full-stack (Customized
     <img src="src/assets/images/screen-d-d.png" width="96%"/>
 </p>
 <p align="center">
-    <img src="src/assets/images/screen-m-d.png" width="31%"/>
-    <img src="src/assets/images/screen-login-m-l.png" width="31%"/>
-    <img src="src/assets/images/screen-email-m-d.png" width="31%"/>
+    <img src="src/assets/images/screen-m-d.png" width="32%"/>
+    <img src="src/assets/images/screen-login-m-l.png" width="32%"/>
+    <img src="src/assets/images/screen-email-m-d.png" width="32%"/>
 </p>
 
 ## What is needed
@@ -32,17 +34,17 @@ Create a file `.env` with this variables:
 - FRONTEND_FOLDER=build (React production files)
 - MONGO_URL=mongodb://localhost:27017/github
 - DROPBOX_TOKEN=YOUR DROPBOX APPLICATION TOKEN
-- EMAIL_ADDRESS=YOUR EMAIL
-- EMAIL_PASSWWORD=YOUR EMAIL PASSWORD
+- EMAIL_ADDRESS=YOUR EMAIL (GMAIL)
+- EMAIL_PASSWORD=YOUR EMAIL PASSWORD
 
 ### mongoDB
 
-In `./src/assets/files` folder I left three json files for each collection of our mongo database that I named `github`.
-The password for the unique user `okimoto.br@gmail.com` is `12345678`.
+In `./src-backend/extra` folder I left two json files for each collection of our mongo database that I named `github`.
+The password for the user `email@gmail.com` is `12345678`.
 
 ### Dropbox Account
 
-On your Dropbox account create a application e get a token for it. In `.env` file, set the value for `DROPBOX_TOKEN`.
+On your Dropbox account create a application and get a token for it. In `.env` file, set the value for `DROPBOX_TOKEN`.
 
 ### Gmail Account
 

@@ -1,3 +1,6 @@
+/*
+ROUTE "api/info" HANDLER
+*/
 const express = require("express");
 const router = express.Router();
 

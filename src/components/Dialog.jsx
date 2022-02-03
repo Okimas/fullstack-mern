@@ -16,7 +16,11 @@ export const Dialog = ({ title, message, buttons, onClose, theme }) => {
       </div>
       <div className="wrapper">
         <div className="title">{title}</div>
-        <div className="message">{message}</div>
+        <div className="message">
+          {message.split("\n").map((text) => (
+            <div>{text}</div>
+          ))}
+        </div>
         <div className="buttons">
           {buttons.map((button, idx) => {
             return (

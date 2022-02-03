@@ -1,3 +1,7 @@
+/*
+ROUTE "api/upload" HANDLER
+USER UPLOAD IMAGE(FILE): local(with thumbnail) and dropbox
+*/
 const fs = require("fs");
 const path = require("path");
 const imageThumbnail = require("image-thumbnail");

@@ -1,3 +1,7 @@
+/*
+AUTH MIDDLEWARE
+*/
+
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
@@ -9,7 +13,7 @@ module.exports = (req, res, next) => {
     const payload = jwt.verify(token, process.env.APP_KEY);
     const now = new Date().getTime();
     if (payload.expires < now)
-      return res.send({ error: { code: -99, message: "Token expirado" } });
+      return res.send({ error: { code: 1001, message: "expired token" } });
     req.user = payload;
     next();
   } catch (error) {

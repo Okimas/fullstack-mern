@@ -3,7 +3,7 @@ import "./Login.css";
 import logo from "../assets/images/logo-black.png";
 import { login, setToken } from "../data/auth";
 import { setStoragedData } from "../data/localStorage";
-import { getData, withServer } from "../data/database";
+import { getData } from "../data/database";
 import { isValidEmail } from "../utils/utils";
 
 const Login = ({ theme, language, onChildAction }) => {
@@ -15,37 +15,25 @@ const Login = ({ theme, language, onChildAction }) => {
     e.preventDefault();
 
     const status = document.querySelector("#login-status");
-    if (withServer) {
-      const email = document.querySelector("#login-email").value;
-      const pass = document.querySelector("#login-pass").value;
-      if (isValidEmail(email) && pass.trim().length > 4) {
-        login(email, pass)
-          .then((result) => {
-            setToken(result.user.token);
-            setStoragedData(result.data);
-            const dataLanguage = result.data.find(
-              (d) => d.language.code === language
-            );
-            onChildAction({
-              data: dataLanguage ? dataLanguage : result.data[0],
-            });
-          })
-          .catch((error) => {
-            status.textContent = error.message;
-            console.log(error.message);
+    const email = document.querySelector("#login-email").value;
+    const pass = document.querySelector("#login-pass").value;
+    if (isValidEmail(email) && pass.trim().length > 4) {
+      login(email, pass)
+        .then((result) => {
+          setToken(result.user.token);
+          setStoragedData(result.data);
+          const dataLanguage = result.data.find(
+            (d) => d.language.code === language
+          );
+          onChildAction({
+            data: dataLanguage ? dataLanguage : result.data[0],
           });
-      } else status.textContent = "Invalid e-mail/password";
-    } else
-      getData()
-        .then((data) => {
-          setToken("TOKEN");
-          setStoragedData(data);
-          const dataLanguage = data.find((d) => d.language.code === language);
-          onChildAction({ data: dataLanguage ? dataLanguage : data[0] });
         })
         .catch((error) => {
-          status.textContent = "error.message";
+          status.textContent = error.message;
+          console.log(error.message);
         });
+    } else status.textContent = "Invalid e-mail/password";
   };
 
   return (

@@ -1,3 +1,6 @@
+/*
+ROUTE "api/data" HANDLER
+*/
 const express = require("express");
 const router = express.Router();
 const { Data } = require("../models/data");
@@ -9,7 +12,7 @@ router.post("/", auth, async (req, res) => {
     res.send(data);
   } else
     res.send({
-      error: { code: -1, message: "Dados não encontrados" },
+      error: { code: 1000, message: "no data" },
     });
 });
 

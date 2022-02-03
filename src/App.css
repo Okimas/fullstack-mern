@@ -42,6 +42,7 @@ input[type="submit"].fullwidth {
   left: 0;
   visibility: hidden;
   max-width: 320px;
+  min-width: 80px;
   padding: 4px 8px;
   font-size: 11px;
   color: rgb(0, 0, 0);
@@ -167,16 +168,17 @@ input[type="submit"].fullwidth {
   color: rgb(30, 30, 30);
 }
 #app header .title .hole {
-  font-size: 12px;
+  font-size: 13px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: 500;
   color: rgb(0, 0, 0);
   text-transform: uppercase;
   display: inline-block;
-  transform: scale(1.57, 1.3) translateX(18.5%); /* depends on text size */
+  padding-left: 1px;
+  transform: scale(0.93, 1.16) translateX(-1.5%);
 }
 #app header .title .hole.en {
-  transform: scale(1.97, 1.3) translateX(25%); /* depends on text size */
+  transform: scale(1.18, 1.16) translateX(9%);
 }
 #app header .menu {
   padding: 12px 6px;

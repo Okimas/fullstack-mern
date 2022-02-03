@@ -1,3 +1,7 @@
+/*
+DATABASE BACKUP: local folder and dropbox application
+*/
+
 require("isomorphic-fetch");
 const Dropbox = require("dropbox").Dropbox;
 const dbx = new Dropbox({ accessToken: process.env.DROPBOX_TOKEN });

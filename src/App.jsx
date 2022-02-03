@@ -22,7 +22,7 @@ class App extends Component {
     sectionActive: 0,
     settings: {
       theme: "light",
-      language: "pt-BR",
+      language: window.navigator.language,
     },
   };
 
@@ -110,7 +110,7 @@ class App extends Component {
               ...this.state,
               dialog: {
                 title: "Success!",
-                message: `Image uploaded. [project folder] => "${response.imagePath}". Also stored on Dropbox`,
+                message: `Image uploaded!\n[project folder] => "${response.imagePath}".\nAlso stored on Dropbox`,
                 buttons: [
                   {
                     label: "OK",
@@ -162,7 +162,7 @@ class App extends Component {
           this.setState(
             {
               ...this.state,
-              data: dataByLanguage,
+              data: dataByLanguage ? dataByLanguage : data[0],
               settings: {
                 theme:
                   dataByLanguage && dataByLanguage.theme
@@ -177,7 +177,7 @@ class App extends Component {
         })
         .catch((error) => {
           // INVALID/EXPIDED TOKEN / ERROR
-          console.log("B-ERR", error);
+          console.log(">ERR", error);
           setToken();
           setStoragedData();
           this.setState({
@@ -442,11 +442,7 @@ class App extends Component {
           />
         )}
         {component && component.name === "loading" && (
-          <Loading
-            theme={settings.theme}
-            message={component.message}
-            // message={settings.language === "pt-BR" ? "CARREGANDO" : "LOADING"}
-          />
+          <Loading theme={settings.theme} message={component.message} />
         )}
         {component && component.name === "email" && (
           <EmailSend

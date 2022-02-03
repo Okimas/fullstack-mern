@@ -1,3 +1,35 @@
+// CHECK AND SET ENVIRONMENT VARIABLES
+const setVariables = () => {
+  require("dotenv").config();
+  return (
+    process.env.APP_KEY &&
+    process.env.MONGO_URL &&
+    process.env.EMAIL_ADDRESS &&
+    process.env.EMAIL_PASSWORD &&
+    process.env.DROPBOX_TOKEN &&
+    process.env.FRONTEND_FOLDER &&
+    (process.env.PORT || process.env.SERVER_PORT)
+  );
+};
+
+// CONNECT TO DATABASE
+const setDatabase = () => {
+  return new Promise(async (resolve, reject) => {
+    require("mongoose")
+      .connect(process.env.MONGO_URL, {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+      })
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+// DEFINES ROUTES AND CREATE A SERVER
 const getLocalIP = () => {
   const networkInterfaces = require("os").networkInterfaces();
   for (const key of Object.keys(networkInterfaces)) {
@@ -14,36 +46,6 @@ const getLocalIP = () => {
   }
   return null;
 };
-
-const setVariables = () => {
-  require("dotenv").config();
-  return (
-    process.env.APP_KEY &&
-    process.env.MONGO_URL &&
-    process.env.EMAIL_ADDRESS &&
-    process.env.EMAIL_PASSWWORD &&
-    process.env.DROPBOX_TOKEN &&
-    process.env.FRONTEND_FOLDER &&
-    (process.env.PORT || process.env.SERVER_PORT)
-  );
-};
-
-const setDatabase = () => {
-  return new Promise((resolve, reject) => {
-    require("mongoose")
-      .connect(process.env.MONGO_URL, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-      })
-      .then(() => {
-        resolve(true);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-};
-
 const startServer = (options) => {
   return new Promise((resolve, reject) => {
     const express = require("express");
@@ -55,7 +57,6 @@ const startServer = (options) => {
     app.use("/api/data", require("./apis/data"));
     app.use("/api/email", require("./apis/email"));
     app.use("/api/upload", require("./apis/upload"));
-    app.use("/api/status", require("./apis/status"));
     app.use("/api/info", require("./apis/info"));
 
     const PORT = process.env.PORT || process.env.SERVER_PORT;
@@ -65,7 +66,7 @@ const startServer = (options) => {
             key: fs.readFileSync(options.certificateKey),
             cert: fs.readFileSync(options.certificateFile),
           }
-        : null,
+        : {},
       app
     );
     server.listen(PORT, () => {

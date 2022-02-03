@@ -1,3 +1,6 @@
+/*
+ROUTE "api/status" HANDLER
+*/
 const express = require("express");
 const router = express.Router();
 const { Status } = require("../models/status");
@@ -9,7 +12,7 @@ router.post("/", auth, async (req, res) => {
     res.send(status[0]);
   } else
     res.send({
-      error: { code: -1, message: "Status inacessível" },
+      error: { code: -1, message: "Inaccessible status" },
     });
 });
 

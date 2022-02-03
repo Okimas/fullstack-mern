@@ -1,3 +1,6 @@
+/*
+EMAIL SENDER
+*/
 const express = require("express");
 const router = express.Router();
 const auth = require("./auth");
@@ -9,7 +12,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWWORD,
+    pass: process.env.EMAIL_PASSWORD,
   },
   tls: {
     ciphers: "SSLv3",
